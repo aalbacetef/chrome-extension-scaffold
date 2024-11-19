@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
 export default {
-  root: './src/background',
+  root: './src/',
   test: {
     environment: 'jsdom',
     include: ['src/**/*.test.ts', 'src/**/*.spec.ts'],

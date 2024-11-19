@@ -18,9 +18,11 @@ build-app: clean-build
 build-content: clean-build
 	$(runner) vite build --mode content 
 
-.PHONY: build
+.PHONY: build build-app build-content build-sw 
 build: build-app build-content build-sw 
 	./tasks/build.fish
 
+test:
+	$(runner) vitest
 
-
+.PHONY: test
