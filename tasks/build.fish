@@ -10,6 +10,9 @@ function log_msg -a str
   printf "(build) %s\n" $str 
 end 
 
+#
+# clear dist dir 
+#
 if test -d $dist_dir 
   # @TODO: add environment variable to skip this step
   log_msg "found previous dist dir, clearing..."
@@ -18,6 +21,9 @@ end
 
 mkdir $dist_dir 
 
+#
+# create dist sub directories
+#
 log_msg "creating destination directories:"
 set sub_dirs assets icons images scripts 
 
@@ -26,11 +32,21 @@ for sub in $sub_dirs
   log_msg "  - $sub"
 end 
 
+#
+# copy over the extension manifest
+#
 log_msg "copying extension manifest.json"
 cp $data_dir/extension/manifest.json $dist_dir/ 
 
+
+#
+# run the build scripts:
+#  - package app
+#  - package background
+#  - package content
+#
 log_msg "running build scripts"
-set scripts package-app.fish package-background.fish package-content.fish 
+set -l scripts package-app.fish package-background.fish package-content.fish 
 
 for s in $scripts
   $root_dir/tasks/$s 
@@ -43,6 +59,5 @@ for s in $scripts
   end 
 
 end 
-
 
 log_msg "done"
